@@ -457,7 +457,7 @@ class MyPlayer{
     }
     replay = () =>{
         this.YTPlayer.unMute();
-        this.YTPlayer.seekTo(80);
+        this.YTPlayer.seekTo(0);
         this.YTPlayer.playVideo();
     }
     mute = () =>{
