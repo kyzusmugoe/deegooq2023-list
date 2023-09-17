@@ -1,0 +1,11 @@
+
+mixin QPopup()
+    .QuitPanel.static(style="display:none")
+        .panel
+            .mesg              
+                .text 這回合尚未完成                
+                .text.large 要繼續測驗嗎？                
+                .text.high 若回合答題未完成下次要再重做喔                
+            .btns
+                button.qBtn.keepGoing  是，我要繼續作答
+                button.qBtn.sec.quit 否，回到FitBack

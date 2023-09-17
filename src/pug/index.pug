@@ -1,0 +1,35 @@
+include ./comps/AppBar.pug
+include ./comps/movType.pug
+include ./comps/QPopup.pug
+include ./comps/QResult.pug
+include ./comps/QPopupHint.pug
+
+doctype html
+html
+    include ./comps/header.pug
+    body 
+        span#debug
+        include ./comps/landscape.pug
+        div.app.portrait(style="display:none")
+            +AppBar
+            +QPopup
+            //首頁
+            +QResult
+            //列表
+            //-include ./comps/list.pug
+            +movType
+            //播放器 
+            include ./comps/count.pug
+            include ./comps/player.pug
+            //結束畫面
+            include ./comps/end.pug
+        include ./comps/loading.pug
+
+        
+        .toDeepLink(style="display:none")
+            span 請稍後...
+    script.
+        const resultPath = "./js/resultPath.json"
+        const savePath = "./js/savePath.json"
+        const imgPath = "./img/"
+        const deepLink = "https://cathay.app.link/vTw2nKudkab?router=/challenge/CogGame&task_no=TK_20231001168168168Mo8"
