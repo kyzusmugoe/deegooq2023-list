@@ -11,6 +11,7 @@ const loadImgManager = ()=>{
         'timer.svg',
         'stand.svg',
         'sit.svg',
+        "checked.svg"
     ]
     let ct = 0
     const loadImgAssets = url =>{
@@ -56,6 +57,7 @@ const setDebugger = (label, value) =>{
 //#endregion
 
 //#region 防止double tap 
+
 window.onload = () => {
     document.addEventListener('touchstart', (event) => {
         if (event.touches.length > 1) {
@@ -187,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     myPlayer = new MyPlayer()
     myPlayer.doEnd =()=>{
+        document.querySelector(".openPanel").style.display= 'inline'  
         sendData().then(res=>{
             console.log(res)
             if(res.result == "ok"){
@@ -195,15 +198,37 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
+    if (document.fullscreenEnabled ||
+        document.webkitFullscreenEnabled ||
+        document.mozFullScreenEnabled ||
+        document.msFullscreenEnabled) {
+    
+        // which element will be fullscreen
+        var iframe = document.querySelector('#youPlayer');
+        // Do fullscreen
+        if (iframe.requestFullscreen) {
+          iframe.requestFullscreen();console.log(1)
+        } else if (iframe.webkitRequestFullscreen) {
+          iframe.webkitRequestFullscreen();console.log(2)
+        } else if (iframe.mozRequestFullScreen) {
+          iframe.mozRequestFullScreen();console.log(3)
+        } else if (iframe.msRequestFullscreen) {
+          iframe.msRequestFullscreen();console.log(4)
+        }
+      }
+
     const setMovList = data =>{
         const listBox = document.querySelector('#QResult .playList')
         data.list.map(item=>{
             const btn  = document.createElement('button')
             btn.innerHTML = item.title
             listBox.appendChild(btn)
+            if(item.watched == 1){
+                btn.classList.add("watched")
+            }
             btn.addEventListener("click", ()=>{
                 //setMovePlayer(item)
-                myPlayer.setMov(item.videoId)
+                myPlayer.setMov(item.videoId) 
                 document.querySelectorAll(`.movType .stand, .movType .sit`).forEach(ct=>{
                     if(ct.classList.contains(item.type)){
                         ct.style.display = "flex"
@@ -218,8 +243,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelector(".readyToPlay").addEventListener('click', ()=>{
+
         openPage("#count")
         document.querySelector("#count").style.display= 'flex'                
+        document.querySelector(".openPanel").style.display= 'none'                
         setTimeout(()=>{
             myPlayer.replay()
             setTimeout(()=>{
@@ -285,7 +312,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const hintPanel =  template1.querySelector("#QResult .hintPanel")
         const hintPanelOpenBtn =  template1.querySelector("#QResult .openHint")
         const hintPanelCloseBtn =  template1.querySelector("#QResult .hintPanel .close")
-       
+        
+        template1.querySelector(".lastDate").innerHTML = data.lastDate
+        template1.querySelector(".currentDate").innerHTML = data.currentDate
         template1.querySelector(".currentAge").innerHTML = data.currentAge
 
         if( data.lastAge){
@@ -433,7 +462,7 @@ class MyPlayer{
                     }
                 }
             });
-            
+          
         }, 1000);
     }
     
@@ -446,7 +475,8 @@ class MyPlayer{
         this.timeCount = 0
         this.YTPlayer.cueVideoById({
             'videoId': id,
-            'startSeconds': 0
+            'startSeconds': 0,
+            'suggestedQuality': 'large'
         })
         this.YTPlayer.pauseVideo();
         this.YTPlayer.mute();
@@ -459,6 +489,7 @@ class MyPlayer{
         this.YTPlayer.unMute();
         this.YTPlayer.seekTo(0);
         this.YTPlayer.playVideo();
+        
     }
     mute = () =>{
         this.YTPlayer.mute();

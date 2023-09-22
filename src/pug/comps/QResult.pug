@@ -8,10 +8,10 @@ mixin QResult
                     .resultLableBox
                         .lastResult 
                             p 上次測驗結果
-                            p.date 2023.08.24
+                            p.date.lastDate ----.--.--
                         .currentResult 
                             p 本次測驗結果
-                            p.date 2023.08.24
+                            p.date.currentDate ----.--.--
                     .box.charBox
                         canvas#chart
                     .sugAge 
@@ -19,7 +19,7 @@ mixin QResult
                             |您的大腦年齡約
                             span.high.currentAge 
                             |歲
-                            button.openHint ?
+                            div.openHint ?
                         .lastTxt(style="display:none")
                             | 和上次相比年輕/增長
                             span.high.lastAge

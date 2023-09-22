@@ -3,18 +3,20 @@
         {
             "title":"提升專注力 GO!",
             "type":"stand",
-            "videoId":"oGcUl4bwQEQ"
+            "videoId":"oGcUl4bwQEQ",
+            "watched":1
         },
         {
             "title":"提升知覺動作 GO!",
             "type":"sit",
-            "videoId":"tCh4_bmeZlA"
+            "videoId":"tCh4_bmeZlA",
+            "watched":1
         },
         {
             "title":"提升執行力 GO!",
             "type":"sit",
-            "videoId":"sbFsUWL_QFM"
-            
+            "videoId":"sbFsUWL_QFM",
+            "watched":0
         }
     ]
 }

@@ -134,18 +134,27 @@ body
             align-items: center
             color: #fff
             background-color: #38a7e3
+            line-height: 100%
+            font-size: 26px            
+            @include sm()
+                font-size: 20px
             .left
-                flex: 0 0 100px 
+                flex: 0 0 120px                 
+                white-space: nowrap
                 button
                     width: 100%
                     height: 100%
                     color: #fff
+                    line-height: 100%
+                    font-size: 18px
+                    @include sm()
+                        font-size: 15px
                     &:active
                         color: $titleColor
             .center
                 text-align: center
                 flex: 1 0 auto
-                padding-right: 100px
+                padding-right: 120px
 
         @include loading()
             
@@ -266,7 +275,7 @@ body
         button.fBtn
             border: none
             background: none
-            background-image: url(../img/btn_skip.svg)
+            //background-image: url(../img/btn_skip.svg)
             background-repeat: no-repeat
             background-size: 100%
             width: 100%
@@ -284,7 +293,7 @@ body
                 position: absolute
                 width: 30px
                 height: 30px
-                background-image: url('../img/akar-icons_arrow-left.svg')
+                //background-image: url('../img/akar-icons_arrow-left.svg')
                 left: calc( 50% + 30px )
 
         button.qBtn
@@ -770,6 +779,11 @@ body
                         &:active
                             background-color: $btnColor
                             color:#fff
+                        /*
+                            &.close
+                                background-color:#fff
+                                color: #878787
+
         
         @include start()
         @include personal()

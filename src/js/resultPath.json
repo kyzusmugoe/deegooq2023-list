@@ -1,7 +1,9 @@
 {
     "result":"ok",
     "currentStatus":[85,75,63,70,85],
+    "currentDate":"2023.09.25",
     "lastStatus":[29,52,88,41,30],
+    "lastDate":"2023.08.23",
     "currentAge":42,
     "lastAge":5
 }

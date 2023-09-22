@@ -1,5 +1,8 @@
 @mixin result()
     #QResult
+        #chart
+            display: none
+
         .row.full
             display: block
             height: 100%
@@ -27,6 +30,7 @@
             width: 100%
             flex: 1 0 0
             position: relative
+       
 
         .chart
             width: 100%
@@ -84,6 +88,9 @@
        
 
         .sugAge
+            .sugTxt
+                @include flexBox(center, flex-end)
+                
             padding: 14px 0
             @include flexBox(center, flex-end)
             flex-direction: column
@@ -223,8 +230,9 @@
             text-align: center
 
         .playList
-            display: flex
             font-size: 24px
+        
+            display: flex
             flex-direction: column
             align-items: center
             color:$lightColor
@@ -239,11 +247,24 @@
                 border-radius: 40px
                 margin-bottom: 15px
                 padding:10px
+                text-align: center
+                &.watched
+                    background:$lightColor  url("../img/checked.svg") center right no-repeat
+                    background-size: 10% 
+                //position: relative
+                /*
+                    &.watched::after
+                        position: absolute
+                        content: url("../img/checked.svg")
+                        top:15px
+                        right: 15px
+
                 
         .openHint
             width: 32px
             height: 32px
             font-size: 21px
+            @include flexBox(center, center)
             color:#fff
             background-color: $mainColor
             border-radius: 50%
