@@ -4,6 +4,7 @@ let youPlayer;
 let mesgPack=[]
 let YID=""
 let myPlayer
+let myChart 
 //#region 讀取圖片資源管理
 const loadImgManager = ()=>{
     return new Promise(resovle=>{
@@ -219,6 +220,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const setMovList = data =>{
         const listBox = document.querySelector('#QResult .playList')
+        while(listBox.lastChild){
+            listBox.removeChild(listBox.lastChild)
+        }
         data.list.map(item=>{
             const btn  = document.createElement('button')
             btn.innerHTML = item.title
@@ -258,6 +262,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //#region 設置結束頁面按鈕
     document.querySelector("#end button.backToMenu").addEventListener('click', ()=>{
+        document.querySelector(".loading").classList.remove('off')
+        init()
         openPage("#QResult")
     })
 
@@ -321,19 +327,21 @@ document.addEventListener('DOMContentLoaded', () => {
             template1.querySelector(".lastTxt").style.display = "block"
             template1.querySelector(".lastAge").innerHTML = data.lastAge
         }
-        
+
         hintPanelOpenBtn.addEventListener("click",()=>{
             hintPanel.style.display = "flex"
+           
         })
+
         hintPanelCloseBtn.addEventListener("click",()=>{
             hintPanel.style.display = "none"
         })
-        
+        /*
         playList.querySelectorAll("button").forEach((pBtn,index)=>{
             pBtn.addEventListener("click",()=>{
                 alert("playlist-"+index)
             })
-        })
+        })*/
         const cData = {
             labels: [
                 '知覺動作','專注力','執行力','記憶力','語言力'
@@ -400,25 +408,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             },
         };
-        const chart = new Chart(template1.querySelector("#chart"), config);
+        if(myChart){
+            myChart.config = config
+        }else{
+            myChart = new Chart(template1.querySelector("#chart"), config);
+        }
     }
 
     //init
     closeAll()
-    loadImgManager().then(res=>{
-        if(res) {
-            return getResultData()
-        } 
-    }).then(res=>{ 
-        QResult(res)
-        return  loadData()
-    }).then(res=>{
-        setMovList(res)
-        QPopup()
-        document.querySelector(".loading").classList.add('off')
-        document.querySelector('#QResult').style.display = "flex" 
-    })
+
+    const init = ()=>{
+        loadImgManager().then(res=>{
+            if(res) {
+                return getResultData()
+            } 
+        }).then(res=>{ 
+            QResult(res)
+            return  loadData()
+        }).then(res=>{
+            setMovList(res)
+            QPopup()
+            document.querySelector(".loading").classList.add('off')
+            document.querySelector('#QResult').style.display = "flex" 
+        })
+    }
     
+    init()
     //loadDataWithoutJson()
     //document.querySelector(`#${currentPage}`).style.display = "flex"
    
